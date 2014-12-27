@@ -95,7 +95,7 @@ function Plane(p, n)
 
         if (Math.abs(v) < 1.0e-17) return;      // no hit
 
-        var t = -(vdot(ray.org, n) + d) / v;
+        var t = -(vdot(ray.org, this.n) + d) / v;
 
         if ( (t > 0.0) && (t < isect.t) ) {
             isect.hit = true;
