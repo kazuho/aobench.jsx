@@ -125,7 +125,7 @@ function Isect()
 function clamp(f)
 {
     
-    i = f * 255.5;
+    var i = f * 255.5;
     if (i > 255.0) i = 255.0;
     if (i < 0.0) i = 0.0;
     return Math.round(i)
@@ -216,25 +216,25 @@ function ambient_occlusion(isect)
 
 function render(ctx, w, h, nsubsamples)
 {
-    cnt = 0;
-    for (y = 0; y < h; y++) {
-        for (x = 0; x < w; x++) {
+    var cnt = 0;
+    for (var y = 0; y < h; y++) {
+        for (var x = 0; x < w; x++) {
 
-            rad = new vec(0.0, 0.0, 0.0);
+            var rad = new vec(0.0, 0.0, 0.0);
 
             // subsampling
-            for (v = 0; v < nsubsamples; v++) {
-                for (u = 0; u < nsubsamples; u++) {
+            for (var v = 0; v < nsubsamples; v++) {
+                for (var u = 0; u < nsubsamples; u++) {
 
                     cnt++;
-                    px = (x + (u / nsubsamples) - (w / 2.0))/(w / 2.0);
-                    py = -(y + (v / nsubsamples) - (h / 2.0))/(h / 2.0);
+                    var px = (x + (u / nsubsamples) - (w / 2.0))/(w / 2.0);
+                    var py = -(y + (v / nsubsamples) - (h / 2.0))/(h / 2.0);
 
-                    eye = vnormalize(new vec(px, py, -1.0));
+                    var eye = vnormalize(new vec(px, py, -1.0));
 
-                    ray = new Ray(new vec(0.0, 0.0, 0.0), eye);
+                    var ray = new Ray(new vec(0.0, 0.0, 0.0), eye);
 
-                    isect = new Isect();
+                    var isect = new Isect();
                     spheres[0].intersect(ray, isect);
                     spheres[1].intersect(ray, isect);
                     spheres[2].intersect(ray, isect);
@@ -242,7 +242,7 @@ function render(ctx, w, h, nsubsamples)
 
                     if (isect.hit) {
                             
-                        col = ambient_occlusion(isect);
+                        var col = ambient_occlusion(isect);
 
                         rad.x += col.x;
                         rad.y += col.y;
@@ -251,9 +251,9 @@ function render(ctx, w, h, nsubsamples)
                 }
             }
 
-            r = rad.x / (nsubsamples * nsubsamples);
-            g = rad.y / (nsubsamples * nsubsamples);
-            b = rad.z / (nsubsamples * nsubsamples);
+            var r = rad.x / (nsubsamples * nsubsamples);
+            var g = rad.y / (nsubsamples * nsubsamples);
+            var b = rad.z / (nsubsamples * nsubsamples);
 
             // use fill rect
             ctx.fillStyle = "rgb(" + clamp(r) + "," + clamp(g) + "," + clamp(b) + ")";
@@ -275,7 +275,7 @@ function page_onload()
     init_scene();
     render(ctx, IMAGE_WIDTH, IMAGE_HEIGHT, 1)
 
-    elapsed = new Date() - start;
+    var elapsed = new Date() - start;
 
     document.elapform.elapsec.value = elapsed / 1000.0
 
